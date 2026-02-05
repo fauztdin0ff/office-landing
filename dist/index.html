@@ -43,12 +43,10 @@
    <meta name="twitter:site" content="@your_twitter">
 
    <!-- Styles -->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css?_v=20260205164237" />
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css?_v=20260205164237" />
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.css?_v=20260205164237">
-   <link rel="stylesheet" href="css/style.min.css?_v=20260205164237">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css?_v=20260205171534" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css?_v=20260205171534" />
+   <link rel="stylesheet" href="css/style.min.css?_v=20260205171534">
    <title>[Имя/Агентство] | Главная</title>
-   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&_v=20260205164237" type="text/javascript"></script>
 
 </head>
 
@@ -65,7 +63,7 @@
    <div class="header__body container">
       <div class="header__logo">
          <a href="#start" class="js-slide-link" data-slide="0" aria-label="На главную">
-            <picture><source srcset="img/logo-icon.webp" type="image/webp"><img src="img/logo-icon.png" width="177" height="64" alt="logo"></picture>
+            <picture><source srcset="img/logo-icon.webp" type="image/webp"><img src="img/logo-icon.png" width="168" height="197" alt="logo"></picture>
          </a>
       </div>
       <div class="header__menu menu">
@@ -134,7 +132,7 @@
             <div class="business__slider swiper">
                <div class="business__slider-wrapper swiper-wrapper">
                   <div class="business__slide swiper-slide" id="start">
-                     <picture><source srcset="img/bc/5.webp" type="image/webp"><img src="img/bc/5.jpg" class="business__slide-image" alt=""></picture>
+                     <picture><source srcset="img/bc/5.webp" type="image/webp"><img src="img/bc/5.jpg" class="business__slide-image" fetchpriority="high" alt="image"></picture>
                      <div class="business__slide-info container">
                         <div class="business__slide-text">
                            <h1 class="business__slide-title">
@@ -847,32 +845,32 @@
                            <div class="business__slide-gallery-images swiper">
                               <div class="swiper-wrapper">
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/5.jpg" data-fancybox="offices">
+                                    <a href="img/offices/5.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/5.webp" type="image/webp"><img src="img/offices/5.jpg" alt=""></picture>
                                     </a>
                                  </div>
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/6.jpg" data-fancybox="offices">
+                                    <a href="img/offices/6.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/6.webp" type="image/webp"><img src="img/offices/6.jpg" alt=""></picture>
                                     </a>
                                  </div>
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/7.jpg" data-fancybox="offices">
+                                    <a href="img/offices/7.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/7.webp" type="image/webp"><img src="img/offices/7.jpg" alt=""></picture>
                                     </a>
                                  </div>
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/5.jpg" data-fancybox="offices">
+                                    <a href="img/offices/5.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/5.webp" type="image/webp"><img src="img/offices/5.jpg" alt=""></picture>
                                     </a>
                                  </div>
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/9.jpg" data-fancybox="offices">
+                                    <a href="img/offices/9.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/9.webp" type="image/webp"><img src="img/offices/9.jpg" alt=""></picture>
                                     </a>
                                  </div>
                                  <div class="business__slide-gallery-image swiper-slide">
-                                    <a href="img/offices/10.jpg" data-fancybox="offices">
+                                    <a href="img/offices/10.jpg" data-fancybox="offices" aria-label="Открыть галерею">
                                        <picture><source srcset="img/offices/10.webp" type="image/webp"><img src="img/offices/10.jpg" alt=""></picture>
                                     </a>
                                  </div>
@@ -1027,7 +1025,7 @@
                               </div>
                               <div class="description__aside-content">
                                  <div class="description__aside-map">
-                                    <div class="description__aside-frame" id="map"></div>
+                                    <div class="description__aside-frame" id="map" data-map></div>
                                  </div>
                               </div>
                            </div>
@@ -1857,9 +1855,9 @@
    <button type="button" class="go-to-top">
       <img src="img/icons/arrow-up-icon.svg" width="30" height="30" alt="arrow up">
    </button>
-   <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js?_v=20260205164237"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js?_v=20260205164237"></script>
-   <script src="js/app.js?_v=20260205164237"></script>
+   <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js?_v=20260205171534"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js?_v=20260205171534"></script>
+   <script src="js/app.js?_v=20260205171534"></script>
 </body>
 
 </html>

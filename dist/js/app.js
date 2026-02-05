@@ -434,7 +434,7 @@ function initOfficeGallerySliders() {
       },
       pagination: {
          el: '.office__gallery-pagination',
-         clickable: true,
+         clickable: false,
       },
       breakpoints: {
          320: {
@@ -708,54 +708,6 @@ function initBcPageGalleries() {
 }
 
 
-/*==========================================================================
-Map
-============================================================================*/
-function initMap() {
-   const mapElement = document.getElementById('map');
-   if (!mapElement) return;
-
-   if (typeof ymaps === 'undefined') return;
-
-   ymaps.ready(() => {
-      const mapCenter = [55.742405, 37.629388];
-      const myMap = new ymaps.Map('map', {
-         center: mapCenter,
-         zoom: 13,
-      }, {
-         searchControlProvider: 'yandex#search'
-      });
-
-      let iconImageSize = window.innerWidth < 768 ? [60, 80] : [90, 100];
-      let iconImageOffset = window.innerWidth < 768 ? [-42.5, -100] : [-67, -130];
-
-      const myPlacemark = new ymaps.Placemark(mapCenter, {
-         hintContent: 'Офисы в Москве',
-         balloonContent: 'Россия, Москва, Пятницкий пер., д.3, м.Новокузнецкая'
-      }, {
-         iconLayout: 'default#image',
-         iconImageHref: 'img/map-location.png',
-         iconImageSize: iconImageSize,
-         iconImageOffset: iconImageOffset
-      });
-
-      myMap.behaviors.disable('scrollZoom');
-      myMap.controls.remove('searchControl');
-      myMap.controls.remove('fullscreenControl');
-      myMap.controls.remove('rulerControl');
-      myMap.geoObjects.add(myPlacemark);
-
-      window.addEventListener('resize', () => {
-         const newIconImageSize = window.innerWidth < 768 ? [85, 100] : [170, 200];
-         const newIconImageOffset = window.innerWidth < 768 ? [-42.5, -100] : [-85, -200];
-         myPlacemark.options.set({
-            iconImageSize: newIconImageSize,
-            iconImageOffset: newIconImageOffset,
-         });
-      });
-   });
-}
-
 
 /*==========================================================================
 Reviews slider
@@ -797,6 +749,96 @@ function initCalendar() {
    });
 }
 
+
+/*==========================================================================
+Lazy Yandex Map (load last)
+============================================================================*/
+(function () {
+   const mapSelector = '[data-map]';
+   const mapElement = document.querySelector(mapSelector);
+   if (!mapElement) return;
+
+   let mapLoaded = false;
+
+   function loadYandexMap() {
+      if (mapLoaded) return;
+      mapLoaded = true;
+
+      if (window.ymaps) {
+         initMap();
+         return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+      script.async = true;
+
+      script.onload = initMap;
+      document.body.appendChild(script);
+   }
+
+   if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+         if (entries[0].isIntersecting) {
+            loadYandexMap();
+            obs.disconnect();
+         }
+      }, {
+         rootMargin: '200px'
+      });
+
+      observer.observe(mapElement);
+   } else {
+      window.addEventListener('load', loadYandexMap);
+   }
+
+   /*==========================================================================
+   Map init
+   ==========================================================================*/
+   function initMap() {
+      const mapElement = document.getElementById('map');
+      if (!mapElement || typeof ymaps === 'undefined') return;
+
+      ymaps.ready(() => {
+         const mapCenter = [55.742405, 37.629388];
+
+         const myMap = new ymaps.Map('map', {
+            center: mapCenter,
+            zoom: 13,
+         }, {
+            searchControlProvider: 'yandex#search'
+         });
+
+         let iconImageSize = window.innerWidth < 768 ? [60, 80] : [90, 100];
+         let iconImageOffset = window.innerWidth < 768 ? [-30, -80] : [-45, -100];
+
+         const myPlacemark = new ymaps.Placemark(mapCenter, {
+            hintContent: 'Офисы в Москве',
+            balloonContent: 'Россия, Москва, Пятницкий пер., д.3, м. Новокузнецкая'
+         }, {
+            iconLayout: 'default#image',
+            iconImageHref: 'img/map-location.png',
+            iconImageSize,
+            iconImageOffset
+         });
+
+         myMap.behaviors.disable('scrollZoom');
+         myMap.controls.remove('searchControl');
+         myMap.controls.remove('fullscreenControl');
+         myMap.controls.remove('rulerControl');
+
+         myMap.geoObjects.add(myPlacemark);
+
+         window.addEventListener('resize', () => {
+            myPlacemark.options.set({
+               iconImageSize: window.innerWidth < 768 ? [85, 100] : [170, 200],
+               iconImageOffset: window.innerWidth < 768 ? [-42.5, -100] : [-85, -200],
+            });
+         });
+      });
+   }
+})();
+
 /*==========================================================================
 Init
 ============================================================================*/
@@ -812,7 +854,6 @@ document.addEventListener('DOMContentLoaded', () => {
    initBcPageOfficeTabs();
    initBcPageInterSlider();
    initBcPageGalleries();
-   initMap();
    initCalendar();
    initReviewsSlider();
 });
