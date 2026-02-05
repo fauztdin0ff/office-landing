@@ -414,12 +414,7 @@ function initOfficeGallerySliders() {
       spaceBetween: 10,
       slidesPerView: 6,
       watchSlidesProgress: true,
-      freeMode: {
-         enabled: true,
-         momentum: true,
-         momentumRatio: 1,
-         momentumBounce: false,
-      },
+      nested: true,
    });
 
    new Swiper(mainSlider, {
@@ -524,15 +519,14 @@ function initNewBcPageSlider() {
                direction: 'vertical',
                slidesPerView: 1,
                watchOverflow: true,
-               simulateTouch: true,
+               simulateTouch: false,
                nested: true,
                grabCursor: false,
                slideToClickedSlide: false,
                speed: 1500,
-               allowTouchMove: true,
+               allowTouchMove: false,
                mousewheel: {
                   forceToAxis: true,
-                  releaseOnEdges: true,
                   sensitivity: 1,
                },
                keyboard: {
