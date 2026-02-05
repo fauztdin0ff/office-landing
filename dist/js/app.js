@@ -404,71 +404,47 @@ function initHiddenText() {
 Офис слайдеры   
 ============================================================================*/
 function initOfficeGallerySliders() {
-   const thumbsEl = document.querySelector('.office__gallery-slider');
-   const mainEl = document.querySelector('.office__gallery-slider-2');
+   const thumbsSlider = document.querySelector('.office__gallery-slider');
+   const mainSlider = document.querySelector('.office__gallery-slider-2');
 
-   if (!mainEl || typeof Swiper === 'undefined') return;
+   if (!thumbsSlider || !mainSlider || typeof Swiper === 'undefined') return;
 
-   let thumbsSwiper = null;
-   let mainSwiper = null;
+   const thumbsSwiper = new Swiper(thumbsSlider, {
+      direction: 'vertical',
+      spaceBetween: 10,
+      slidesPerView: 6,
+      watchSlidesProgress: true,
+      freeMode: {
+         enabled: true,
+         momentum: true,
+         momentumRatio: 1,
+         momentumBounce: false,
+      },
+   });
 
-   function init() {
-      const isDesktop = window.innerWidth >= 767;
-
-      if (mainSwiper) {
-         mainSwiper.destroy(true, true);
-         mainSwiper = null;
-      }
-
-      if (thumbsSwiper) {
-         thumbsSwiper.destroy(true, true);
-         thumbsSwiper = null;
-      }
-
-      if (isDesktop && thumbsEl) {
-         thumbsSwiper = new Swiper(thumbsEl, {
-            direction: 'vertical',
+   new Swiper(mainSlider, {
+      spaceBetween: 10,
+      thumbs: {
+         swiper: thumbsSwiper,
+      },
+      pagination: {
+         el: '.office__gallery-pagination',
+         clickable: false,
+      },
+      breakpoints: {
+         320: {
+            direction: 'horizontal',
+            slidesPerView: 'auto',
             spaceBetween: 10,
-            slidesPerView: 6,
-            watchSlidesProgress: true,
-            freeMode: {
-               enabled: true,
-            },
-         });
-      }
-
-      mainSwiper = new Swiper(mainEl, {
-         spaceBetween: 10,
-
-         touchStartPreventDefault: false,
-         touchMoveStopPropagation: false,
-
-         thumbs: thumbsSwiper
-            ? { swiper: thumbsSwiper }
-            : undefined,
-
-         pagination: {
-            el: '.office__gallery-pagination',
-            clickable: false,
          },
-
-         breakpoints: {
-            0: {
-               direction: 'horizontal',
-               slidesPerView: 'auto',
-            },
-            1000: {
-               direction: 'vertical',
-               slidesPerView: 1,
-            },
+         1000: {
+            direction: 'vertical',
+            slidesPerView: 1,
+            spaceBetween: 10,
          },
-      });
-   }
-
-   init();
-   window.addEventListener('resize', init);
+      },
+   });
 }
-
 
 /*==========================================================================
 Офис галерея
