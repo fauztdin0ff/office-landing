@@ -423,14 +423,9 @@ function initOfficeGallerySliders() {
    });
 
    new Swiper(mainSlider, {
-      direction: 'vertical',
       spaceBetween: 10,
       thumbs: {
          swiper: thumbsSwiper,
-      },
-      mousewheel: {
-         releaseOnEdges: false,
-         sensitivity: 2,
       },
       pagination: {
          el: '.office__gallery-pagination',
